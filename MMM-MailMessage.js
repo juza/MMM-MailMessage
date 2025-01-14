@@ -187,25 +187,11 @@ Module.register("MMM-MailMessage", {
         // Now we go through the list of valid senders to make sure the message came
         // from someone allowed to post messages.  If not, we ignore it.
         let selSender = that.config.validSenders.filter((mySender) => {
-          if (
-            mySender.addr.toLowerCase() ===
-            thisMail.sender[0].address.toLowerCase()
-          )
+          if ( mySender.addr.toLowerCase() === thisMail.sender[0].address.toLowerCase() )
             return true;
-          else return false;
+          else 
+            return false;
         });
-				// Trim leading spaces
-				subject = subject.replace(/^\s+/gm,'');
-
-
-//  Now we go through the list of valid senders to make sure the message came
-//  from someone allowed to post messages.  If not, we ignore it. 
-				let selSender = that.config.validSenders.filter(mySender => {
-					if (mySender.addr.toLowerCase() == thisMail.sender[0].address.toLowerCase()) 
-						return true
-					 else 
-						return false
-				});
 
         // If the sender was legit and it's not too old (or in the future), we start
         // building the message for display in messageWrapper.
@@ -274,13 +260,8 @@ Module.register("MMM-MailMessage", {
 
           // Now we bundle it all up to be displayed.
           messageWrapper.appendChild(document.createTextNode(subject));
-
           wrapper.appendChild(messageWrapper);
 					
-					//  Now we bundle it all up to be displayed.
-    	            messageWrapper.appendChild(document.createTextNode(subject));
-    	            wrapper.appendChild(messageWrapper);
-
           // Add a break
           wrapper.appendChild(document.createElement("BR"));
 

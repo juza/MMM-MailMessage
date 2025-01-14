@@ -12,27 +12,25 @@ var analyzeEmails = function (path, client, that) {
   client.search("inbox", query).then((ids) => {
     console.log("MMM-MailMessage: Mail-Search complete - " + ids.length + " found.");
     if (ids.length > 0) {
-      client
-        .listMessages("inbox", ids, ["uid", "envelope"])
-        .then((messages) => {
-          //console.log("MMM-MailMessage: Message-List complete");
-          messages.forEach(function (m) {
-            var newMail = {
-              id: m.uid,
-              date: m.envelope.date,
-              subject: m.envelope.subject,
-              from: m.envelope.from,
-              sender: m.envelope.sender,
-              to: m.envelope.to
-            };
-            Result.push(newMail);
-          });
-          console.log("MMM-MailMessage: %s Mails fetched", Result.length);
-          that.sendSocketNotification("EMAIL_FETCH", {
-            user: client.options.auth.user,
-            messages: Result
-          });
+      client.listMessages("inbox", ids, ["uid", "envelope"]).then((messages) => {
+        //console.log("MMM-MailMessage: Message-List complete");
+        messages.forEach(function (m) {
+          var newMail = {
+            id: m.uid,
+            date: m.envelope.date,
+            subject: m.envelope.subject,
+            from: m.envelope.from,
+            sender: m.envelope.sender,
+            to: m.envelope.to
+          };
+          Result.push(newMail);
         });
+        console.log("MMM-MailMessage: %s Mails fetched", Result.length);
+        that.sendSocketNotification("EMAIL_FETCH", {
+          user: client.options.auth.user,
+          messages: Result
+        });
+      });
     } else {
       that.sendSocketNotification("EMAIL_FETCH", {
         user: client.options.auth.user,
