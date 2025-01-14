@@ -218,10 +218,11 @@ Module.register("MMM-MailMessage", {
             case selSender[0].color !== undefined:
               messageWrapper.style.color = selSender[0].color;
               break;
-            case that.config.colorText:
+            case that.config.colorText !== undefined:
               messageWrapper.style.color = that.config.colorText;
               break;
           }
+
           if (MODIFIERS.includes(msgStat)) {
             subject = subject.substring(1, subject.length);
           }
