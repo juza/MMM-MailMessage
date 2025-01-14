@@ -6,12 +6,12 @@ var ImapClient = require('emailjs-imap-client');
 		
 //Email-Analyse Function to format the fetched Email-Object
 var analyzeEmails = function(path, client, that) { //path is for instance inbox
-		//console.log("==========ANALYSE-MAILS=========");
-		//console.log(util.inspect(client));
-		var query = {unseen: true};
+		console.log("==========ANALYSE-MAILS=========");
+		// console.log(util.inspect(client));
+		var query = {unseen: true}   //{or: {unseen: true, seen: true}};
 		var Result = [];
 		client.search('inbox',query).then((ids) => {
-			console.log("Mail-Seach complete");
+			console.log("Mail-Seach complete - " + ids.length + " found.");
 			if(ids.length>0)
 			{
 			client.listMessages('inbox', ids, ['uid','envelope']).then((messages) => {

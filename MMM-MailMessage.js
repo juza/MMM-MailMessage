@@ -3,7 +3,7 @@
  * MMM-MailMessage
  *
  * This module looks for e-mails set to a specific address and displays the 
- * subject line on the MagicMirror².  
+ * subject line on the MagicMirrorï¿½.  
  *
  * It is heavily based on the MMM-Mail module by MMPieps found here:
  * https://github.com/MMPieps/MMM-Mail
@@ -16,7 +16,6 @@
  * 2023-11-01	UncleRoger	Initial Release
  *
  *************************************************************************** */
- 
  
 Module.register("MMM-MailMessage",{
 	defaults:{
@@ -53,12 +52,17 @@ Module.register("MMM-MailMessage",{
 					console.log("Email-Fetch Event");
 					
 					this.messages = payload.messages;
+					console.log("Messages count: " + this.messages.length);
 					
 					if(this.messages.length>0)
 					{
-						console.log(this.messages[0].id);
 						this.messages.sort(function(a,b) {return b.id - a.id; });
 					}
+
+					for (let message of this.messages) {
+					    console.log(" ID: " + message.id);
+					}
+
 					this.updateDom(2000);
 				}
 			}
@@ -88,13 +92,13 @@ Module.register("MMM-MailMessage",{
 
 			
 		if (TEXT_SIZES.includes(this.config.textSize)) {
-			wrapper.className = this.config.classes ? this.config.classes : "thin " + this.config.textSize + " bright pre-line";
+			wrapper.className = this.config.classes ? this.config.classes : "light " + this.config.textSize + " bright pre-line";
 		} else {
-			wrapper.className = this.config.classes ? this.config.classes : "thin xlarge bright pre-line";
+			wrapper.className = this.config.classes ? this.config.classes : "light xlarge bright pre-line";
 		}
 
 
-		console.log("Starting MailMessage");
+		console.log("Starting MailMessage - count: " + this.messages.length);
 		
         var that = this;
 		var msgCount = 0;
@@ -114,8 +118,8 @@ Module.register("MMM-MailMessage",{
 //                var subject = thisMail.subject.replace(/[\['"\]]+/g,"");
                 var subject = thisMail.subject.replace(/['"]+/g,"");
 
-//				console.log("Message Found - Subject: " + subject);
-//				console.log("                Date:    " + thisMail.date);
+				console.log("Message Found - Subject: " + subject);
+				console.log("                Date:    " + thisMail.date);
 				
 				// Trim leading spaces
 				subject = subject.replace(/^\s+/gm,'');
@@ -177,7 +181,6 @@ Module.register("MMM-MailMessage",{
 				// Trim leading spaces
 				subject = subject.replace(/^\s+/gm,'');
 
-				
 
 //  Now we go through the list of valid senders to make sure the message came
 //  from someone allowed to post messages.  If not, we ignore it. 
@@ -260,9 +263,8 @@ Module.register("MMM-MailMessage",{
 					}
 
 					
-//  Now we bundle it all up to be displayed.
+					//  Now we bundle it all up to be displayed.
     	            messageWrapper.appendChild(document.createTextNode(subject));
-    	               
     	            wrapper.appendChild(messageWrapper);
 
 					// add a break
@@ -276,7 +278,7 @@ Module.register("MMM-MailMessage",{
 					(minutesAgo < 0 || minutesAgo >= cfgTime) )  { 
 					break;
 				}
-           }
+            }
         }
 
 		if (wrapper.children.length > 0) {
