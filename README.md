@@ -62,6 +62,7 @@ In addition, you will need an e-mail address to which messages can be sent. Havi
 To add a message to your MagicMirror², send an e-mail to the specified e-mail address with the message in the subject line. Note that the body of the e-mail is ignored by this module.
 
 If the subject line starts with one of the allowed modifiers, the color of the message will be changed accordingly. At this time, the modifers are:
+
 | Modifier | Symbol Name | Meaning | Default Color |
 | ------- | --- | --- | --- |
 | ! | Exclamation Point | Important Message | #ff0000 (Red) |
@@ -99,6 +100,6 @@ This option specifies an array of objects. This means that it's a list that cont
 
 | Attribute | Description | Status |
 | ------- | --- | --- |
-| addr | The sender's e-mail address. It must contain a valid address. | Required |
+| addr | The sender's e-mail address. It must contain a valid address. (<name@example.com>) | Required |
 | name | The sender's nickname. | Optional |
-| color | A color in which messages from this send will be displayed | Optional |
+| color | A HTML color in which messages from this sender will be displayed. ("#ff0000", "LightGray") | Optional |
